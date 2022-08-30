@@ -1,0 +1,27 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "select2@4.0.13",
+      "destination": "Content/select2"
+    },
+    {
+      "library": "AlertifyJS@1.13.1",
+      "destination": "Content/AlertifyJS"
+    },
+    {
+      "library": "font-awesome@5.15.4",
+      "destination": "Content/font-awesome"
+    },
+    {
+      "library": "datatables.net@1.11.3",
+      "destination": "Content/datatables.net"
+    },
+    {
+      "library": "datatables.net-bs@1.11.3",
+      "destination": "Content/datatables.net/css"
+    }
+
+  ]
+}

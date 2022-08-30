@@ -1,0 +1,144 @@
+﻿@model IEnumerable<WebExceptionLogs>
+
+@{
+    ViewBag.Title = "ExceptionLogs";
+}
+
+<script src="https://cdn.datatables.net/plug-ins/1.10.20/i18n/Turkish.json"></script>
+
+<script src="~/Content/datatables.net/jquery.dataTables.min.js"></script>
+<link href="~/Content/datatables.net/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+
+<style>
+    table {
+        width: 100%;
+    }
+
+    #example_filter {
+        float: right;
+    }
+
+    /*tbody{
+                    font-size:smaller;
+                }
+                thead {
+                    font-size: smaller;
+                }*/
+
+    #example_paginate {
+        float: right;
+    }
+
+    label {
+        display: inline-flex;
+        margin-bottom: .5rem;
+        margin-top: .5rem;
+    }
+</style>
+
+
+
+<style>
+    /*    body {
+                margin: 0;
+                font-family: "Lato", sans-serif;
+            }*/
+
+    .container-fluid {
+        padding-left: 0px;
+    }
+
+    .sidebar {
+        margin: 0;
+        padding: 0;
+        width: inherit;
+        background-color: #f1f1f1;
+        position: fixed;
+        height: 100%;
+        overflow: auto;
+    }
+
+        .sidebar a {
+            display: block;
+            color: black;
+            padding: 16px;
+            text-decoration: none;
+            font-size: 14px
+        }
+
+            .sidebar a.active {
+                background-color: lightskyblue;
+                color: white;
+            }
+
+            .sidebar a:hover:not(.active) {
+                background-color: #555;
+                color: white;
+            }
+
+    div.content {
+        margin-left: 200px;
+        padding: 1px 16px;
+        height: 1000px;
+    }
+
+    .data-alani {
+        margin: 10px
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-12">
+
+        <div class="col-md-1">
+            <div class="sidebar">
+                <a href="" id="btnDashboard">Dashboard</a>
+                <a href="" id="btnExceptionLogs">Web Exception Logs</a>
+                <a href="" id="btnSessionLogs">Session Logs</a>
+                <a href="/Duyurular/Index" id="btnSessionLogs">Duyurular</a>
+            </div>
+        </div>
+
+
+        <div class="col-md-11">
+            <div class="data-alani" id="contentarea">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<script>
+
+        $(function () {
+            $('#btnExceptionLogs').on('click', function (e) {
+                e.preventDefault();
+
+            $.ajax({
+            url: '@Url.Action("ExceptionLogsGetir", "Admin")',
+            dataType: "html",
+                type: 'GET',
+                contentType: "application/json; charset=utf-8",
+
+            //data: {
+            //    id: $(this).attr('id')
+            //},
+            success: function (result) {
+                $("#contentarea").html(result);
+                //contentOverlay.load();
+                },
+                error(result) {
+                    alert(result);
+                }
+        });
+            });
+        });
+
+
+
+</script>

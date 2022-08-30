@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>mlog</Title>
+			<Shortcut>mlog</Shortcut>
+			<Description>Code snippet for Loglama</Description>
+			<Author>Ali KARA</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal Editable="false">
+					<ID>SystemConsole</ID>
+					<Function>SimpleTypeName(global::System.Console)</Function>
+				</Literal>
+			</Declarations>
+			<Code Language="csharp"><![CDATA[
+			try
+            {
+
+            }
+            catch (Exception ex)
+            {
+                Loglama.Log(ex, System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.Name);
+            }]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>

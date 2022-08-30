@@ -1,0 +1,115 @@
+﻿@helper DatePicker(string ButtonText, string DatePickerName, string SessionDatePath)
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-md-offset-2 col-md-7 col-xs-12">
+                <div class="col-md-3 col-xs-4">
+                    <button type="submit"
+                            class="btn btn-success">
+                        @ButtonText
+                    </button>
+                </div>
+                <div class="col-md-4 col-xs-8">
+                    <div class="form-group">
+                        <div style="text-align:center"
+                             class='input-group date'
+                             id='@DatePickerName'>
+                            <input id="@DatePickerName"
+                                   name="@DatePickerName"
+                                   type='text'
+                                   class="form-control"
+                                   value=@Session[SessionDatePath]
+                                   placeholder="Tarihi Seçiniz." />
+                            <span class="input-group-addon">
+                                <span class="fa fa-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @DateTimeScript(DatePickerName)
+}
+
+@helper DatePicker_Ikili()
+{
+    DatePicker_Ikili("Kayıtları Getir", "dtBaslangic", "Exc_DateBaslangic", "dtBitis", "Exc_DateBitis");
+}
+
+@helper DatePicker_Ikili(string ButtonText, string DatePickerName_Baslangic, string SessionDatePath_Baslangic, string DatePickerName_Bitis, string SessionDatePath_Bitis)
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-md-offset-2 col-md-10 col-xs-12">
+
+                <div class="col-md-3 col-xs-8 col-xs-offset-3 col-md-offset-0">
+                    <button type="submit" id="KayitGetirButon" class="btn btn-success btn-block">
+                        @ButtonText
+                    </button>
+                </div>
+                <br class="visible-xs" />
+                <br class="visible-xs" />
+                <br class="visible-xs" />
+
+                <div class="col-md-3 col-xs-8 col-xs-offset-3 col-md-offset-0">
+                    <div class="form-group">
+                        <div style="text-align:center"
+                             class='input-group date'
+                             id='@DatePickerName_Baslangic'>
+                            <input type='text'
+                                   class="form-control"
+                                   id="@DatePickerName_Baslangic"
+                                   name="@DatePickerName_Baslangic"
+                                   value="@Session[SessionDatePath_Baslangic]"
+                                   placeholder="Tarihi Seçiniz."
+                                   autocomplete="off" />
+                            <span class="input-group-addon">
+                                <span class="fa fa-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-xs-8 col-xs-offset-3 col-md-offset-0">
+                    <div class="form-group">
+                        <div style="text-align:center"
+                             class='input-group date'
+                             id='@DatePickerName_Bitis'>
+                            <input id="@DatePickerName_Bitis"
+                                   name="@DatePickerName_Bitis"
+                                   type='text'
+                                   class="form-control"
+                                   value="@Session[SessionDatePath_Bitis]"
+                                   placeholder="Tarihi Seçiniz." />
+                            <span class="input-group-addon">
+                                <span class="fa fa-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   @DateTimeScript(DatePickerName_Baslangic)
+   @DateTimeScript(DatePickerName_Bitis)
+}
+
+
+@helper DateTimeScript(string DatePickerName)
+{
+    <script>
+                $('#@DatePickerName').datetimepicker({
+                    format: "DD-MM-YYYY",
+                    locale: 'tr',
+                });
+                //$('#datetimepicker1').datetimepicker('show');
+
+                //function getdate()
+                //{
+                //    $("#datetimepicker").find("input").val()
+                //}
+                $('#getdate').click(function () { $("#@DatePickerName").find("input").val() })
+    </script>
+}

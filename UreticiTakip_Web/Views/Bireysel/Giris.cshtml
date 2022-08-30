@@ -1,0 +1,111 @@
+﻿@model URETICILER
+
+@{
+    ViewBag.Title = "Üretici - Giriş Sayfası";
+}
+
+<link href="~/Content/login-register.css" rel="stylesheet" />
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+
+    
+
+    <section class="login-info">
+        <div class="container">
+            <div class="row main">
+                <div class="form-header">
+                    <h1 class="text-center">Üretici Giriş Formu</h1>
+                </div>
+                <div class="main-content">
+                    @Html.ValidationSummary(false)
+
+                    @if (@ViewBag.Result != null)
+                    {
+                        <div class="alert alert-@ViewBag.Status" role="alert">
+                            <h4 style="text-align:center"> @ViewBag.Result</h4>
+                        </div>
+                    }
+
+                    <div class="input-group ">
+                        <span class="input-group-addon">
+                            <span class="fas fa-user" aria-hidden="true"></span>
+                        </span>
+                        @Html.TextBoxFor(model => model.URETICI_NO, new { @class = "form-control", placeholder = "Kullanıcı Adınız", autocomplete = "off", Name = "User", Value = TempData["user"] })
+                    </div>
+
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <span class="fas fa-lock" aria-hidden="true"></span>
+                        </span>
+                        @Html.TextBoxFor(model => model.Parola, new { @class = "form-control", placeholder = "Parolanız", type = "password", Name = "Password" })
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-danger btn-lg btn-block login-button">Onay</button>
+                    </div>
+
+                    <div class="form-group" style="color:black;">
+                        <h4>Sistemde görünen kayıtlar bilgilendime amaçlı olup, anlaşmazlık durumunda kooperatif kayıtları geçerlidir.</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+}
+
+@*<script type="text/javascript">
+        $(window).on('load', function () {
+            $('#exampleModal').modal('show');
+        });
+    </script>*@
+
+<!-- Modal -->
+@* <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="color:darkslategray">
+            @foreach (var item in Model.list)
+            {
+                <div class="modal-header">
+                    <h2 class="modal-title success" id="exampleModalLabel"></h2>
+                    <div class="pull-right">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">Kapat</button>
+                    </div>
+                    @*<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>*@
+
+@*
+        </div>
+
+        <div class="modal-body col-md-12">
+
+
+            <div class="panel panel-success">
+                <div class="panel-heading"><h2>@item.Baslik</h2></div>
+                <div class="panel-body">@item.Mesaj</div>
+                <div class="panel-footer">@item.BitisTarihi</div>
+            </div>
+
+
+        </div>
+    }
+    <div class="modal-footer">
+        @*<button type="button" class="btn btn-success" data-dismiss="modal">Kapat</button>
+            <button type="button" class="btn btn-primary">Save changes</button>*@
+@*       </div>
+            </div>
+        </div>
+    </div>
+*@

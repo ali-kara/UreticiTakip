@@ -1,0 +1,86 @@
+﻿@model IEnumerable<KAYIT_DETAY>
+@{
+    ViewBag.Title = "Kayıt Detaylar";
+}
+
+<h2>Kayıt Detaylar</h2>
+
+<p>
+    @Html.ActionLink("Listeye Geri Dön", "IndexDetayli", null, new { @class = "btn btn-primary" })
+</p>
+
+<table class="table">
+    <tr style="background-color:greenyellow">
+        <th>
+            @Html.DisplayNameFor(model => model.CICEK_ADI)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ADET)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DEMET)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.KALEM_NO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ALICI_KODU)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ALICI_SAND)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ALICI_TUTAR)
+        </th>
+        <th>
+
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CICEK_ADI)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ADET)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DEMET)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.KALEM_NO)
+        </td>  
+        <td>
+            @Html.DisplayFor(modelItem => item.ALICI_KODU)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ALICI_SAND)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ALICI_TUTAR)
+        </td>
+    </tr>
+}
+    <tr style="background-color:khaki">
+        <td></td>
+        <td>
+            @Model.Sum(x => x.ADET)
+        </td>
+        <td>
+            @Model.Sum(x => x.DEMET)
+        </td>
+        <td>
+            @Model.Sum(x => x.KALEM_NO)
+        </td>
+        <td>
+
+        </td>
+        <td>
+
+        </td>
+        <td>
+            @Model.Sum(x => x.ALICI_TUTAR)
+        </td>
+    </tr>
+</table>

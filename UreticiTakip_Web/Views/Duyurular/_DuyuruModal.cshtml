@@ -1,0 +1,97 @@
+﻿@model Duyurular
+
+
+
+<div class="modal fade" id="Duyuru_@Model.DuyuruID" name="Duyuru_@Model.DuyuruID" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static" aria-labelledby="Duyuru_label" )">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header" id="id">
+                @if (!Model.OnayGerekir)
+                {
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                }
+
+                <h4 class="modal-title">
+                    @Html.DisplayFor(model => model.Baslik)
+                </h4>
+            </div>
+            <div class="modal-body" id="body_@Model.DuyuruID">
+                @Html.DisplayFor(model => model.Mesaj)
+
+
+                <br />
+                <br />
+            </div>
+            <div class="modal-footer">
+                @if (Model.OnayGerekir)
+                {
+                    <button class="btn btn-lg btn-success" id="btnOnay_@Model.DuyuruID">Okudum, Onaylıyorum</button>
+                }
+                else
+                {
+                    <button type="button" class="btn btn-success" data-dismiss="modal">Kapat</button>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<script>
+    $(function () {
+
+        $("#Duyuru_@Model.DuyuruID").modal('show');
+
+
+
+        $('#btnOnay_@Model.DuyuruID').click(function () {
+
+        var data = {
+            UreticiNo:@CurrentSession.Uretici.URETICI_NO,
+            DuyuruID: @Model.DuyuruID
+        }
+
+             $.ajax({
+                url: '@Url.Action("DuyuruOnayla", "Duyurular")',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                type: 'POST',
+                data: JSON.stringify(data),
+
+                success: function (response)
+                {
+                    if (response.success)
+                    {
+                        alertify.set('notifier', 'position', 'top-center');
+                        alertify.success(response.responseText);
+
+                        var name = '#Duyuru_@Model.DuyuruID.ToString()';
+                        $(name).modal('hide');
+                    }
+                    else
+                    {
+                        alertify.set('notifier', 'position', 'top-center');
+                        alertify.success(response.responseText);
+                    }
+                },
+                error: function (data) {
+                    alert(data.responseText);
+                }
+            });
+
+        });
+    });
+
+
+</script>

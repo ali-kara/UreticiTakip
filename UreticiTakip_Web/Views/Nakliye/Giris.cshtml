@@ -1,0 +1,142 @@
+﻿@model Soforler
+@{
+    ViewBag.Title = "Nakliyeci - Giriş Sayfası";
+}
+
+
+@*@using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <section class="login-info">
+            <div class="container">
+                <div class="row main">
+                    <div class="form-header">
+                        <h1 class="text-center">Nakliyeci Giriş Formu</h1>
+                    </div>
+                    <div class="main-content">
+                        @Html.ValidationSummary(false)
+
+                        @if (@ViewBag.Result != null)
+                        {
+                            <div class="alert alert-@ViewBag.Status" role="alert">
+                                @ViewBag.Result
+                            </div>
+                        }
+
+
+                        <div class="input-group ">
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                            </span>
+                            @Html.TextBoxFor(model => model.Kodu, new { @class = "form-control", placeholder = "Kullanıcı Adınız", autocomplete = "off", Name = "Kodu", Value = TempData["Kodu"] })
+                        </div>
+
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
+                            </span>
+                            @Html.TextBoxFor(model => model.Parola, new { @class = "form-control", placeholder = "Parolanız", type = "password", Name = "Password" })
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-danger btn-lg btn-block login-button">Giriş</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <link href="~/Content/login-register.css" rel="stylesheet" />
+        <link href="~/Content/validation-summary.css" rel="stylesheet" />
+    }*@
+
+@*<script type="text/javascript">
+        $(window).on('load', function () {
+            $('#exampleModal').modal('show');
+        });
+    </script>*@
+
+<!-- Modal -->
+
+<style>
+
+
+    .login-container {
+        margin-top: 5%;
+        margin-bottom: 5%;
+    }
+
+    .login-form-2 {
+        padding: 9%;
+        background: #f05837;
+        box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+    }
+
+        .login-form-2 h2 {
+            text-align: center;
+            margin-bottom: 12%;
+            color: #fff;
+            font-size: 36px;
+        }
+
+    .btnSubmit {
+        font-weight: 600;
+        width: 50%;
+        color: #282726;
+        background-color: #fff;
+        border: none;
+        border-radius: 1.5rem;
+        padding: 2%;
+    }
+
+    .btnForgetPwd {
+        color: #fff;
+        font-weight: 600;
+        text-decoration: none;
+    }
+
+        .btnForgetPwd:hover {
+            text-decoration: none;
+            color: #fff;
+        }
+
+    .MyFontStyle {
+        font-family: 'Trebuchet MS', sans-serif;
+        text-align: center;
+        font-size: 16px;
+        font-weight: 400;
+
+    }
+</style>
+@using (Html.BeginForm())
+{
+
+    <div class="container login-container">
+        <div class="row">
+            <div class="col-md-offset-3 col-md-6 ">
+                <div class="login-form-2">
+
+                    <h2 class="MyFontStyle">Nakliyeci Giriş Formu</h2>
+
+                    <div class="form-group">
+                        <input type="text" name="Kodu" class="form-control MyFontStyle" placeholder="Kullanıcı Adınız" />
+                    </div>
+
+                    <div class="form-group">
+                        <input type="password" name="Password" class="form-control MyFontStyle" placeholder="Parolanız" />
+                    </div>
+
+                    <div class="form-group" style="text-align: center">
+                        <input style="font-size:20px" type="submit" class="btnSubmit" value="Giriş Yap" />
+                    </div>
+
+                    @*<div class="form-group">
+                            <a href="#" class="btnForgetPwd" value="Login">Beni Hatırla</a>
+                        </div>*@
+                </div>
+            </div>
+        </div>
+    </div>
+}

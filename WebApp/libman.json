@@ -1,0 +1,22 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "AlertifyJS@1.13.1",
+      "destination": "Content/AlertifyJS"
+    },
+    {
+      "library": "font-awesome@5.15.4",
+      "destination": "Content/font-awesome"
+    },
+    {
+      "library": "bootstrap@5.1.3",
+      "destination": "Content/bootstrap"
+    },
+    {
+      "library": "jquery-@1.19.3",
+      "destination": "Content/jquery-validate"
+    }
+  ]
+}

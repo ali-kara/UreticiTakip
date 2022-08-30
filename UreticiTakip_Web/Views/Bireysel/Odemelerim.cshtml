@@ -1,0 +1,59 @@
+﻿@model IEnumerable<URETICI_ODEMELER2>
+
+@{
+    ViewBag.Title = "Ödemelerim";
+}
+
+<h2>Ödemelerim</h2>
+
+@{string Tarih = "";}
+
+<div class="col-md-6">
+
+
+    @Html.ActionLink("Listeye Geri Dön", "Index", "UreticiKayit", null, new { @class = "btn btn-primary" })
+
+
+    @if (!Model.Any())
+    {
+        <hr />
+        <h4>Henüz Ödemeniz Bulunmamaktadır.</h4>
+    }
+    else
+    {
+
+        <br /><br />
+        <table class="table table-striped table-bordered">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.TARIH)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ODEME)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ACIKLAMA)
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @{Tarih = item.TARIH.Value.ToShortDateString();}
+
+                        @Html.DisplayFor(modelItem => Tarih)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ODEME)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ACIKLAMA)
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+    }
+</div>

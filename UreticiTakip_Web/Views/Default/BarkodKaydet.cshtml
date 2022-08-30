@@ -1,0 +1,139 @@
+﻿
+@{
+    ViewBag.Title = "BarkodKaydet";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<button id="myBtn" onclick="javascript:alert('Hello World!')">Button</button>*@
+
+<br />
+<br />
+
+<div class="input-group input-group-lg">
+    <input id="myInput" type="text" class="form-control" placeholder="Mesajınız" aria-label="Username" aria-describedby="basic-addon1">
+</div>
+
+<div>
+    <input type="button" class="btn-lg btn-success" value="Send Data" id="send-data" />
+</div>
+
+
+@*//$('#main-menu a').on('click', function(event) {
+    //event.preventDefault();
+
+    //$.ajax(this.href, {
+    //success: function(data) {
+    //$('#main').html($(data).find('#main *'));
+    //$('#notification-bar').text('The page has been successfully loaded');
+    //},
+    //error: function() {
+    //$('#notification-bar').text('An error occurred');
+    //}
+    //});
+    //});*@
+
+
+<script>
+       $(document).keypress(function (event) {
+            //alert('Handler for .keypress() called. - ' + event.charCode);
+            if (event.which == 13) {
+                //alert('Enter Basıldı.');
+
+                //var str = $("#myInput").val();
+                //alert(str);
+                $('body').on('click', '.btnRemove', function () {
+                    //$(this).parent('td').parent('tr').remove();
+                    $(this).closest('tr').remove();
+                });
+
+                $.ajax({
+                    url: '@Url.Action("Kaydet", "Default")',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data: { //Passing data
+                        Name: $("#myInput").val() //Reading text box values using Jquery
+                    },
+                    success: function(data) {
+                        var employeeTable = $('#employee tbody');
+                        //employeeTable.empty();
+                        $("#myInput").val("");
+                        $(data).each(function (index, emp) {
+                            employeeTable.append(
+                                '<tr><td>' +
+                                emp.Barkod +
+                                '</td><td>'+
+                                '<input type="button" class="btnRemove" value="Remove"/></div>'+
+                                '</td></tr>');
+                        });
+                    },
+                    error: {
+
+                    }
+                });
+
+                $('#send-data').click(function () {
+                    var rows = [];
+                    $('#employee tbody tr').each(function () {
+                        var barkod = $(this).find('td').eq(0).text().trim();
+                        //var name = $(this).find('td').eq(1).text().trim();
+                        //var family = $(this).find('td').eq(2).text().trim();
+                        var row = barkod;
+                            //+ "-" + name + "-" + family;
+                        rows.push(row);
+                    });
+
+                    alert(rows);
+
+                    @*$.post('@Url.Action("Proccess","Home")', { rows: rows }, function (data) {
+                        console.log(data);
+                        alert(data);
+                    });*@
+
+                });
+
+                function getAllEmployees() {
+                    $.ajax({
+                        url: 'EmployeeService.asmx/GetAllEmployees',
+                        dataType: "json",
+                        method: 'GET',
+                        success: function (data) {
+                            var employeeTable = $('#employee tbody');
+                            employeeTable.empty();
+
+                            $(data).each(function (index, emp) {
+                                employeeTable.append
+                                    (
+                                        '<tr><td>' + emp.ID + '</td><td>'
+                                    + emp.Name + '</td><td>' + emp.Gender + '</td><td>'
+                                    + emp.Phone + '</td><td>' + emp.Email + '</td><td>'
+                                        + emp.Age + '</td><td>' + emp.Salary + '</td></tr>'
+                                    );
+                            });
+                        },
+                        error: function (err) {
+                            console.log(err);
+                        }
+                    });
+                }
+            }
+        });
+</script>
+
+
+<table id="employee" class="table table-bordered" style="margin-top:10px;">
+    <thead class="bg-danger text-center text-white">
+        <tr>
+            <th>Barkod</th>
+            <th>Buton</th>
+
+            @*<th>Name</th>
+                <th>Gender</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Age</th>
+                <th>Salary</th>*@
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>  

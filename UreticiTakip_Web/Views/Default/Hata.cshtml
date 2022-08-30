@@ -1,0 +1,24 @@
+﻿@{
+    ViewBag.Title = "Hata";
+
+    WebExceptionLogs web = CurrentSession.Get(SessionKeys.Exception) as WebExceptionLogs;
+
+}
+
+<h2>Tüh. Bir Hata Oluştu.</h2>
+<h2>Ana Sayfaya Yönlendiriliyorsunuz. Hata Mesajı:</h2>
+
+<h3>
+    @if (web != null)
+    {
+        @web.Message
+    }
+</h3>
+
+
+<script>
+    window.setTimeout(function ()
+    {
+        window.location.href = '/UreticiKayit/Index';
+    }, 4000);
+</script>

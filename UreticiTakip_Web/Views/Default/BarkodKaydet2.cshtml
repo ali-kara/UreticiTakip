@@ -1,0 +1,37 @@
+﻿@{
+    ViewBag.Title = "BarkodKaydet";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="input-group input-group-lg">
+    <input id="myInput" type="text" class="form-control" placeholder="Mesajınız" aria-label="Username" aria-describedby="basic-addon1">
+</div>
+
+
+<script type="text/javascript">
+    function getTextBoxContent() {
+        return document.getElementById('myInput').value;
+    }
+</script>
+
+
+@Ajax.ActionLink("Getir", "Kaydet2", 
+    null,
+    //new { Name = getTextBoxContent() },
+    new AjaxOptions
+    {
+        HttpMethod = "GET",
+        InsertionMode = InsertionMode.InsertAfter,
+        UpdateTargetId = "employee",
+        
+
+    },
+    new { @class = "btn btn-success" })
+
+
+
+<table id="employee" class="table table-bordered" style="margin-top:10px;">
+
+</table>
+

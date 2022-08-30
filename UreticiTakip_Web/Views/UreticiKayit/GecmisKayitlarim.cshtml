@@ -1,0 +1,180 @@
+﻿@model IEnumerable<KAYIT_BASLIK>
+
+@{
+    /**/
+
+    ViewBag.Title = "Index";
+    var Uretici = (URETICILER)Session["uretici"];
+    var Odeme = (URETICI_ODEMELER2)Session["odeme"];
+}
+<br />
+
+
+
+<script>
+    $(document).ready(function () {
+        $("#KayitGetirButon").click(function () {
+
+            if ($("#drop").children("option").filter(":selected").text() == 'Lütfen Seçiniz') {
+
+                //alertify.alert('Lütfen Listeden Yıl Seçiniz!');
+
+                alertify.set('notifier', 'position', 'top-center');
+                alertify.success('Lütfen Listeden Yıl Seçiniz!');
+
+                $('#drop').focus();
+
+                return false;
+            }
+            else return;
+        });
+    });
+</script>
+
+
+@using (Html.BeginForm())
+{
+
+    <div id="container">
+        @Html.ActionLink("Aktif Döneme Dön", "Index", "UreticiKayit", null, new { @class = "btn btn-success inline-element" })
+        <label class="inline-element">Yıl :</label>
+        @Html.DropDownList("SelectedYears", (SelectList)ViewBag.Years, "Lütfen Seçiniz", new { @class = "inline-element dropdown form-control  ", id = "drop" })
+    </div>
+
+
+
+    <div class="row">
+
+        <div class="form-group col-md-6 col-xs-12">
+            <div class="col-md-offset-2 col-xs-6 col-md-4">
+                @Html.ActionLink("Aktif Döneme Dön", "Index", "UreticiKayit", null, new { @class = "btn btn-success" })
+            </div>
+        </div>
+
+        <div class="form-group col-xs-offset-2 ">
+                <label class=" col-md-1 col-xs-3 control-label">Yıl :</label>
+                <div class="col-md-3 col-xs-6">
+                    @Html.DropDownList("SelectedYears", (SelectList)ViewBag.Years, "Lütfen Seçiniz", new { @class = "form-control dropdown ", id = "drop" })
+                </div>
+            </div>
+
+
+    </div>
+
+
+
+    <br />
+
+    @DatePicker_V1.DatePicker_Ikili("Kayıtları Getir", "dateBaslangic", "FilterDate_Start", "dateBitis", "FilterDate_End")
+
+
+}
+
+
+
+<table class="table">
+    <tr style="background-color:greenyellow">
+        <th>
+            #
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model._SUBE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TOPLAM)
+        </th>
+        <th>
+            Kesinti
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NAKLIYE_ZARAR)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ODENECEK)
+        </th>
+        <th>
+
+        </th>
+        <th style="vertical-align: middle;">
+            @Html.DisplayNameFor(model => model.ISLEM_TARIHI)
+        </th>
+        <th>
+            Sıra No
+        </th>
+    </tr>
+
+    @{int RowNo = 0;}
+
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td style="vertical-align: middle;">
+                @{RowNo++;} @RowNo
+            </td>
+            <td style="vertical-align: middle;">
+                @*@Html.DisplayFor(modelItem => item.sube.SUBE_KISA_ADI)*@
+                @Html.DisplayFor(modelItem => item._SUBE)
+            </td>
+
+            @if (item.TED_NO != "")
+            {
+                <td align="center" colspan="5"><h4>@item.TED_NO</h4></td>
+            }
+            else
+            {
+
+                <td style="vertical-align: middle;">
+                    @Html.DisplayFor(modelItem => item.TOPLAM)
+                </td>
+                <td style="vertical-align: middle;">
+                    @Html.DisplayFor(modelItem => item.NET)
+                </td>
+                <td style="vertical-align: middle;">
+                    @Html.DisplayFor(modelItem => item.NAKLIYE_ZARAR)
+                </td>
+                <td style="vertical-align: middle;">
+                    @Html.DisplayFor(modelItem => item.ODENECEK)
+                </td>
+
+                <td style="vertical-align: middle;">
+                    @Html.ActionLink("Detaylar", "GecmisKayitDetay", new { sube = item._SUBE.Trim(), tarih = item.ISLEM_TARIHI, sira_no = item.DEPO_SIRA_NO }, new { @class = "btn btn-success", id = "someID" })
+                </td>
+            }
+            <td style="vertical-align: middle;">
+                @Html.DisplayFor(modelItem => item.ISLEM_TARIHI)
+            </td>
+            <td style="vertical-align: middle;">
+                @Html.DisplayFor(modelItem => item.DEPO_SIRA_NO)
+            </td>
+
+        </tr>
+    }
+
+    <tr style="background-color:khaki">
+        <td></td>
+        <td></td>
+        <td style="vertical-align: middle;">
+            @Model.Where(x => x.TED_NO == "").Sum(x => x.TOPLAM)
+        </td>
+        <td>
+            @ViewBag.Toplam
+        </td>
+        <td>
+            @Model.Where(x => x.TED_NO == "").Sum(x => x.NAKLIYE_ZARAR)
+        </td>
+        <td>
+            @Model.Where(x => x.TED_NO == "").Sum(x => x.ODENECEK)
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+
+    </tr>
+</table>
+
+@*<table style="width:100%;">
+        <tr>
+            <td style="text-align:right;"><span id="spanTimeLeft"></span> seconds left</td>
+            </tr>
+    </table>*@

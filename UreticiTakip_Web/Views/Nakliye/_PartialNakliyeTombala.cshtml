@@ -1,0 +1,62 @@
+﻿@model IEnumerable<NakliyeTombala>
+
+@{int toplam = 0; }
+
+@{
+    foreach (var item in Model)
+    {
+        int a = Convert.ToInt32(item.Adet);
+        toplam += a;
+    }
+}
+
+<h4>Toplam Koli Sayısı : @toplam</h4>  
+<br />    
+
+<table class="table table-bordered table-striped">
+
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UreticiKodu)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UreticiAdiSoyadi)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.UreticiIli)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.Adet)
+        </th>
+        <th></th>
+    </tr>
+
+
+    @{if (Model != null)
+        {
+
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UreticiKodu)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UreticiAdiSoyadi)
+                    </td>
+                    @*<td>
+                        @Html.DisplayFor(modelItem => item.UreticiIli)
+                    </td>*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Adet)
+                    </td>
+                    <td>
+                        <button data-id="@item.Id" class="btn btn-success btnSil disabled">
+                            Sil
+                        </button>
+                    </td>
+                </tr>
+            }
+        }
+    }
+</table>

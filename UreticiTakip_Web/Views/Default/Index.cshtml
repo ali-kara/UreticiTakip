@@ -1,0 +1,107 @@
+﻿
+<section id="Workflow">
+    <div class="container">
+
+        @*<div class="row">
+                <div class="col-md-8 offset-md-2">
+                    <div class="section-title">
+                        <h2 class="text-center">How It Workflow?</h2>
+                        <p class="text-center"><i>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text</i></p>
+                    </div>
+                    <hr class="border-white mb-4 mt-4">
+                </div>
+            </div>*@
+
+
+        <div class="row" style="margin-top:100px">
+
+            <div class="col-md-6">
+                <div class="work-process">
+                    <img src="~/Resimler/flora.png" />
+                    <h3><a href="~/Bireysel/Giris">Üretici Tediye Giriş</a></h3>
+                    <p></p>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="work-process">
+                    <img src="~/Resimler/flora.png" />
+                    <h3><a href="~/Nakliye/Giris">Nakliyeci Giriş</a></h3>
+                    <p></p>
+                </div>
+            </div>
+            @*<div class="col-md-4">
+                    <div class="work-process">
+                        <i class="fas fa-copy"></i>
+                        <h3><a href="#">Compare Pricing & Services</a></h3>
+                        <p>Many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected</p>
+                    </div>
+                </div>*@
+
+
+        </div>
+    </div>
+</section>
+
+<style>
+    #Workflow .work-process::after {
+        content: "";
+        position: absolute;
+        background: #86f5fc;
+        left: 0px;
+        top: 0px;
+        width: 0px;
+        height: 100%;
+        transition: all 0.3s;
+        z-index: -1;
+    }
+
+    #Workflow .work-process:hover::after {
+        background: rgb(233 248 255 / 22%);
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        border-radius: 10px;
+    }
+
+    #Workflow .work-process {
+        background-color: #fff;
+        padding: 40px 15px;
+        position: relative;
+        z-index: 1;
+        transition: 0.5s;
+        box-shadow: 0px 30px 0px -20px #ffffff;
+        margin-bottom: 30px;
+        border-bottom: 3px solid #607d8b;
+        text-align: center;
+    }
+
+        #Workflow .work-process i {
+            margin: 0 auto;
+            display: table;
+            background-color: #607d8b;
+            width: 70px;
+            height: 70px;
+            border-radius: 8px;
+            font-size: 40px;
+            text-align: center;
+            color: #fff;
+            line-height: 70px;
+        }
+
+        #Workflow .work-process h3 {
+            margin: 15px 0px;
+        }
+
+            #Workflow .work-process h3 a {
+                font-size: 20px;
+                color: black;
+                background-color: lightblue;
+                padding: 10px 20px 10px 20px;
+                border-radius: 10px;
+            }
+
+        #Workflow .work-process p {
+            color: #ffd800;
+        }
+</style>

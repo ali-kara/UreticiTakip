@@ -1,0 +1,123 @@
+﻿@model IEnumerable<WebExceptionLogs>
+
+
+<h3>
+    Web Hataları
+</h3>
+
+
+<br />
+
+<table id="example" class="table table-bordered table-striped table-hover">
+    <thead>
+
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Message)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InnerException)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Stacktrace)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ActionName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Controller)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OlusturmaTarihi)
+            </th>
+        </tr>
+    </thead>
+
+    @if (Model != null)
+    {
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Message)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.InnerException)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Stacktrace)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ActionName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Controller)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OlusturmaTarihi)
+                    </td>
+
+                </tr>
+
+            }
+        </tbody>
+
+    }
+
+</table>
+
+<script>
+    $(document).ready(function () {
+        $('#example').DataTable(
+
+            {
+                "language": {
+                    "sDecimal": ",",
+                    "sEmptyTable": "Tabloda herhangi bir veri mevcut değil",
+                    "sInfo": "_TOTAL_ kayıttan _START_ - _END_ arasındaki kayıtlar gösteriliyor",
+                    "sInfoEmpty": "Kayıt yok",
+                    "sInfoFiltered": "(_MAX_ kayıt içerisinden bulunan)",
+                    "sInfoPostFix": "",
+                    "sInfoThousands": ".",
+                    "sLengthMenu": "Sayfada       _MENU_        kayıt göster",
+                    "sLoadingRecords": "Yükleniyor...",
+                    "sProcessing": "İşleniyor...",
+                    "sSearch": "Ara:",
+                    "sZeroRecords": "Eşleşen kayıt bulunamadı",
+                    "oPaginate": {
+                        "sFirst": "İlk",
+                        "sLast": "Son",
+                        "sNext": "Sonraki",
+                        "sPrevious": "Önceki"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": artan sütun sıralamasını aktifleştir",
+                        "sSortDescending": ": azalan sütun sıralamasını aktifleştir"
+                    },
+                    "select": {
+                        "rows": {
+                            "_": "%d kayıt seçildi",
+                            "0": "",
+                            "1": "1 kayıt seçildi"
+                        }
+                    }
+                },
+                "aLengthMenu": [[5, 10, 25, -1], [5, 10, 25, "Tüm"]],
+                "iDisplayLength": -1
+            }
+        );
+    });
+
+
+    function checkAll(bx) {
+        var cbs = document.getElementsByTagName('input');
+        for (var i = 0; i < cbs.length; i++) {
+            if (cbs[i].type == 'checkbox') {
+                cbs[i].checked = bx.checked;
+            }
+        }
+    }
+</script>

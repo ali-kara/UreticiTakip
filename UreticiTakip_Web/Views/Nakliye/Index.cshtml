@@ -1,0 +1,402 @@
+﻿@model ViewModelNakliye
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Scripts/SessionReset.js"></script>
+
+<div class="row">
+    <div class="col-xs-12">
+        @*<div class="col-xs-6 col-md-2">
+                @Html.DropDownListFor(m => m.Soforler.Bolge, (SelectList)ViewBag.Bolge, "Lütfen Seçiniz", new { @id = "cmbBolge", @class = "dropdown form-control" })
+            </div>
+
+            <div class="col-xs-6  col-md-2">
+                @Html.DropDownListFor(m => m.Soforler.Plaka, (SelectList)ViewBag.Plaka, "Lütfen Seçiniz", new { @id = "cmbPlaka", @class = "dropdown form-control" })
+            </div>*@
+
+        <div class="col-xs-12 col-md-12">
+            <h3>@CurrentSession.Get(SessionKeys.NakliyePlaka).ToString()</h3>
+            <h3>@CurrentSession.Get(SessionKeys.NakliyeBolge).ToString()</h3>
+
+        </div>
+
+
+        <br />
+        <br />
+
+
+        <div class="col-xs-6 col-md-2">
+            @Html.TextBoxFor(x => x.NakliyeTombala.Adet, new { @placeholder = "Koli Adeti", @type = "number", @id = "txtAdet", @class = "form-control" })
+        </div>
+
+
+
+        <div class="col-xs-6 col-md-2">
+            @Html.TextBoxFor(x => x.NakliyeTombala.UreticiKodu, new { @placeholder = "Uretici Kodu", @type = "text", @id = "txtUreticiKodu", @class = "form-control" })
+        </div>
+
+        <br class="visible-xs" />
+        <br class="visible-xs" />
+
+        <div class="col-xs-6 col-md-2">
+            @Html.TextBoxFor(x => x.NakliyeTombala.UreticiKodu, new
+            {
+                @placeholder = "Barkod"@*,@maxlength = "12"*@,
+@id = "txtBarkod",
+@class = "form-control"
+})
+        </div>
+
+
+
+        <div class="col-xs-6 col-md-2">
+            <button id="btnKayitDuzenle" class="btn btn-success btn-block">
+                Kayıtları Düzenle
+            </button>
+        </div>
+
+    </div>
+</div>
+
+<br />
+
+
+<div class="row">
+    <div id="listtt" class="col-xs-12 col-md-6">
+
+    </div>
+</div>
+
+
+<div class="overlay"></div>
+
+
+<script>
+    $(document).on({
+        ajaxStart: function () {
+            $("body").addClass("loading");
+        },
+        ajaxStop: function () {
+            $("body").removeClass("loading");
+        }
+    });
+</script>
+
+
+<script>
+    $(function () {
+        $("#txtBarkod").focus()
+
+        NakliyeTombalaGetir();
+
+
+        //alertify.confirm('Confirm Title', 'Confirm Message',
+        //    function () {
+        //        alertify.success('Ok')
+        //        NakliyeTombalaGetir();
+        //    }
+        //    , function () {
+        //        alertify.error('Cancel')
+        //    });
+    });
+
+    //$('#cmbPlaka').on('change', function () {
+    //    NakliyeTombalaGetir();
+    //});
+
+    //$('#cmbBolge').on('change', function () {
+    //    NakliyeTombalaGetir();
+    //});
+
+    $('#btnKayitDuzenle').click(function () {
+        if ($('#btnKayitDuzenle').text() == "Düzenlemeyi Bitir") {
+
+            $("button.btnSil").addClass("disabled");
+            $('#btnKayitDuzenle').text("Kayıtları Düzenle");
+        }
+        else {
+
+            $("button.btnSil").removeClass("disabled");
+            $('#btnKayitDuzenle').text("Düzenlemeyi Bitir");
+        }
+    });
+
+    function DeleteState() {
+        if ($('#btnKayitDuzenle').text() == "Düzenlemeyi Bitir")
+        {
+            $("button.btnSil").removeClass("disabled");
+        }
+        else
+        {
+            $("button.btnSil").addClass("disabled");
+        }
+    }
+
+    $(document).on('click', '.btnSil', function () {
+
+        if ($(this).hasClass("disabled") == true) {
+            return;
+        }
+
+        var data = {
+            id: $(this).data("id")
+        }
+
+        alertify.confirm('Uyarı', 'Bu satırı silmek istediğinize emin misiniz?',
+            function () {
+                $.ajax({
+                   contentType: "application/json; charset=utf-8",
+                   dataType: "json",
+                   type: 'POST',
+                   url: '@Url.Action("NakliyeTombalaSil", "Nakliye")',
+                   data: JSON.stringify(data),
+                   success: function (response)
+                   {
+                       alertify.alert(response.responseText);
+
+                        if (response.success) {
+                            NakliyeTombalaGetir()
+                        }
+
+                    },
+                   error: function (data)
+                   {
+                        alert(data.x);
+                   }
+               });
+            }
+            , function () {
+                //alertify.error('Cancel')
+            });
+
+    });
+
+    //set('labels', {ok:'Evet', cancel:'Hayır'});
+
+
+    $(document).keypress(function (event) {
+        //alert('Handler for .keypress() called. - ' + event.charCode);
+
+
+        if (event.which == 13) {
+
+            if ($("#txtAdet").is(':focus')) {
+                return;
+            }
+            NakliyeTombalaKaydet();
+        }
+    });
+
+    function TombalaKaydet_UreticiNo() {
+        var data = {
+            UreticiKodu: $("#txtUreticiKodu").val(),
+            Adet: $("#txtAdet").val(),
+        }
+
+        $.ajax({
+            url: '@Url.Action("TombalaKaydet_UreticiNo", "Nakliye")',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            type: 'POST',
+            data: JSON.stringify(data),
+
+            success: function (response) {
+
+                if (response.success)
+                {
+                    NakliyeTombalaGetir()
+
+                    $("#txtAdet").val("1")
+                }
+                else {
+                    alertify.set('notifier', 'position', 'top-center');
+                    alertify.success(response.responseText);
+
+
+                }
+
+                $("#txtBarkod").val("")
+                $("#txtUreticiKodu").val("")
+                $("#txtBarkod").focus()
+
+            },
+            error: function (data){
+                alert(data.responseText);
+            },
+
+        });
+    }
+
+    function TombalaKaydet_Barkod() {
+        var data = {
+            Barkod: $("#txtBarkod").val(),
+            Adet: $("#txtAdet").val(),
+        }
+
+        $.ajax({
+            url: '@Url.Action("TombalaKaydet_UreticiNo", "Nakliye")',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            type: 'POST',
+            data: JSON.stringify(data),
+
+            success: function (response) {
+
+                if (response.success)
+                {
+                    NakliyeTombalaGetir()
+
+                    $("#txtAdet").val("1")
+                }
+                else {
+                    alertify.set('notifier', 'position', 'top-center');
+                    alertify.success(response.responseText);
+
+
+                }
+
+                $("#txtBarkod").val("")
+                $("#txtUreticiKodu").val("")
+                $("#txtBarkod").focus()
+
+            },
+            error: function (data){
+                alert(data.responseText);
+            },
+
+        });
+    }
+
+    function NakliyeTombalaKaydet() {
+
+        if ($("#txtAdet").val() == "") {
+            $("#txtAdet").val("1")
+        }
+
+        if ($("#txtBarkod").is(':focus')) {
+
+            $("#txtBarkod").val($.trim($("#txtBarkod").val()));
+
+            if (!$("#txtBarkod").val().toUpperCase().startsWith("FLORA")){
+                alertify.set('notifier', 'position', 'top-center');
+                alertify.success('Uygun Barkod Okutulmadı.');
+
+                $("#txtBarkod").val("")
+                $("#txtUreticiKodu").val("")
+                $("#txtBarkod").focus()
+
+                return;
+            }
+
+
+            if ($("#txtBarkod").val().length < 10 || $("#txtBarkod").val().length > 12) {
+                alertify.set('notifier', 'position', 'top-center');
+                alertify.success('Uygun Barkod Okutulmadı.');
+
+                $("#txtBarkod").val("")
+                $("#txtUreticiKodu").val("")
+                $("#txtBarkod").focus()
+
+                return;
+            }
+        }
+
+
+        var data = {
+            //Plaka: $("#cmbPlaka option:selected").text(),
+            //Bolge: $("#cmbBolge option:selected").text(),
+            Barkod: $("#txtBarkod").val(),
+            UreticiKodu: $("#txtUreticiKodu").val(),
+            Adet: $("#txtAdet").val(),
+        }
+
+        $.ajax({
+            url: '@Url.Action("NakliyeTombalaKaydet", "Nakliye")',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            type: 'POST',
+            data: JSON.stringify(data),
+
+            success: function(response) {
+
+
+                if (response.success)
+                {
+                    NakliyeTombalaGetir()
+
+                    $("#txtAdet").val("1")
+                }
+                else {
+                    alertify.set('notifier', 'position', 'top-center');
+                    alertify.success(response.responseText);
+
+
+                }
+
+                $("#txtBarkod").val("")
+                $("#txtUreticiKodu").val("")
+                $("#txtBarkod").focus()
+
+            },
+            error: function (data){
+                alert(data.responseText);
+            },
+
+        });
+    }
+
+    function NakliyeTombalaGetir()
+    {
+        $.ajax({
+            url: '@Url.Action("NakliyeTombalaGetir", "Nakliye")',
+            contentType: "application/json; charset=utf-8",
+            dataType: "html",
+            type: 'POST',
+
+            success: function(data) {
+                $('#listtt').html(data);
+
+                DeleteState()
+
+            },
+            error: function (data){
+                alert(data);
+            }
+        });
+    }
+
+</script>
+
+@*//var str = $("#myInput").val();
+    //alert(str);
+    $('body').on('click', '.btnRemove', function () {
+        //$(this).parent('td').parent('tr').remove();
+        $(this).closest('tr').remove();
+    });*@
+
+<style>
+    .overlay {
+        display: none;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 999;
+        background: rgba(255,255,255,0.8) url("../../Resimler/ajax-loader.gif") center no-repeat;
+    }
+
+
+    /* Turn off scrollbar when body element has the loading class */
+    body.loading {
+        overflow: hidden;
+    }
+        /* Make spinner image visible when body element has the loading class */
+        body.loading .overlay {
+            display: block;
+        }
+</style>

@@ -1,0 +1,64 @@
+﻿@model IEnumerable<vmUreticiDuyurularim>
+
+@{
+    ViewBag.Title = "Duyurularım";
+}
+
+<h2>Duyurularım</h2>
+
+<style>
+
+    input[type="checkbox"] {
+        height: 30px;
+        width: 30px;
+    }
+
+    table {
+        font-family: 'Trebuchet MS';
+        font-size: 14px;
+    }
+
+        table thead {
+            font-size: 18px;
+            font-weight: bold;
+        }
+</style>
+<br class="mt-5" />
+
+<table class="table table-bordered table-striped">
+    <tr style="background-color:lightskyblue">
+        <th>
+            @Html.DisplayNameFor(model => model.Baslik)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Mesaj)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DuyuruTarihi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OnayTarihi)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Baslik)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Mesaj)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DuyuruTarihi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OnayTarihi)
+            </td>
+        </tr>
+    }
+
+</table>
+
+

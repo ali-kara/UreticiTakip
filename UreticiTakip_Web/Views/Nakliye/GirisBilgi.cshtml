@@ -1,0 +1,220 @@
+﻿@model ViewModelNakliye
+
+@{
+    ViewBag.Title = "GirisBilgi";
+    //Layout = null;
+
+}
+
+
+
+
+<div class="col-md-offset-4 col-md-4">
+        @*<div class="card" style="background-color:aliceblue;">
+            <div class="card-header">
+                
+            </div>
+
+            <div class="card-body">*@
+
+                <div class="form-horizontal">
+
+                    <div class="form-group">
+                        <h2> @Model.Soforler.Adi @Model.Soforler.Soyadi</h2>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.DropDownListFor(m => m.Soforler.Bolge, (SelectList)ViewBag.Bolge, "Lütfen Seçiniz", new { @id = "cmbBolge", @style = "font-size: 18px;", @class = "dropdown form-control" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.DropDownListFor(m => m.Soforler.Plaka, (SelectList)ViewBag.Plaka, "Lütfen Seçiniz", new { @id = "cmbPlaka", @style = "font-size: 18px;", @class = "dropdown form-control" })
+                    </div>
+
+                    <div class="form-group">
+                        <button class="btn btn-success btnSubmit">
+                            Koli Kabule Başla
+                        </button>
+                    </div>
+
+                </div>
+            @*</div>
+
+        </div>*@
+    </div>
+
+
+
+<script>
+
+    $(document).on('click', '.btnSubmit', function () {
+
+
+        if ($("#cmbPlaka option:selected").text() == "Lütfen Seçiniz" || $("#cmbBolge option:selected").text() == "Lütfen Seçiniz") {
+
+            alertify.set('notifier', 'position', 'top-center');
+            alertify.success('Lütfen Plaka ve Bölge Seçiniz!');
+
+            return;
+        }
+
+
+        var data = {
+            Plaka: $("#cmbPlaka option:selected").text(),
+            Bolge: $("#cmbBolge option:selected").text()
+        }
+
+        $.ajax({
+            url: '@Url.Action("GirisBilgi", "Nakliye")',
+            contentType: "application/json; charset=utf-8",
+            dataType: "html",
+            type: 'POST',
+            data: JSON.stringify(data),
+            success: function () {
+                window.location = "/Nakliye/Index/";
+            },
+            error: function (data) {
+                alert(data.responseText);
+            }
+        });
+    });
+
+</script>
+
+<!-- JavaScript -->
+<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+
+<!-- CSS -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
+
+
+
+
+@*<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>*@
+
+<!--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+
+<div class="container">
+
+    <div class="card bg-light" style="margin-top:100px;">
+        <article class="card-body mx-auto" style="max-width: 400px;">
+            <h4 class="card-title mt-3 text-center">Merhaba @Model.Soforler.Adi @Model.Soforler.Soyadi</h4>
+            <br />-->
+            @*<p class="text-center">Lütfen Aşağıdaki Bilgileri Seçiniz</p>*@
+            @*<p>
+                    <a href="" class="btn btn-block btn-twitter"> <i class="fab fa-twitter"></i>   Login via Twitter</a>
+                    <a href="" class="btn btn-block btn-facebook"> <i class="fab fa-facebook-f"></i>   Login via facebook</a>
+                </p>
+                <p class="divider-text">
+                    <span class="bg-light">OR</span>
+                </p>*@
+            <!--<form>-->
+                @*<div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                        </div>
+                        <input name="" class="form-control" placeholder="Full name" type="text">
+                    </div> <!-- form-group// -->
+
+
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                        </div>
+                        <input name="" class="form-control" placeholder="Email address" type="email">
+                    </div> <!-- form-group// -->
+
+
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
+                        </div>
+                        <select class="custom-select" style="max-width: 120px;">
+                            <option selected="">+971</option>
+                            <option value="1">+972</option>
+                            <option value="2">+198</option>
+                            <option value="3">+701</option>
+                        </select>
+                        <input name="" class="form-control" placeholder="Phone number" type="text">
+                    </div> <!-- form-group// -->*@
+
+
+                <!--<div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-building"></i> </span>
+                    </div>
+                    @Html.DropDownListFor(m => m.Soforler.Bolge, (SelectList)ViewBag.Bolge, "Lütfen Seçiniz", new { @id = "cmbBolge", @style = "font-size: 18px;", @class = "dropdown form-control" })
+
+                </div> <!-- form-group end.// -->
+
+
+                <!--<div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-building"></i> </span>
+                    </div>
+                    @Html.DropDownListFor(m => m.Soforler.Plaka, (SelectList)ViewBag.Plaka, "Lütfen Seçiniz", new { @id = "cmbPlaka", @style = "font-size: 18px;", @class = "dropdown form-control" })
+
+                </div>--> <!-- form-group end.// -->
+                <!--@*<div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                        </div>
+                        <input class="form-control" placeholder="Create password" type="password">
+                    </div> <!-- form-group// -->
+
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                        </div>
+                        <input class="form-control" placeholder="Repeat password" type="password">
+                    </div> <!-- form-group// -->*@
+
+                <!--<br />
+
+                <div class="form-group">
+                    <button class="btn btn-primary btn-block btnSubmit"> Koli Kabule Başla  </button>
+                </div>--> <!-- form-group// -->
+                <!--@*<p class="text-center">Have an account? <a href="">Log In</a> </p>*@
+            </form>
+        </article>
+    </div>--> <!-- card.// -->
+<!--</div>-->
+
+<style>
+    .divider-text {
+        position: relative;
+        text-align: center;
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+
+        .divider-text span {
+            padding: 7px;
+            font-size: 12px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .divider-text:after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            border-bottom: 1px solid #ddd;
+            top: 55%;
+            left: 0;
+            z-index: 1;
+        }
+
+    .btn-facebook {
+        background-color: #405D9D;
+        color: #fff;
+    }
+
+    .btn-twitter {
+        background-color: #42AEEC;
+        color: #fff;
+    }
+</style>

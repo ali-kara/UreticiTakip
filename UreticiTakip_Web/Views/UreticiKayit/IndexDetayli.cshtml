@@ -1,0 +1,192 @@
+﻿@model IEnumerable<KAYIT_BASLIK>
+
+@{
+    ViewBag.Title = "Detaylı Kayıtlar";
+
+    var Uretici = (URETICILER)CurrentSession.Get(SessionKeys.Uretici);
+}
+
+<br />
+
+@using (Html.BeginForm())
+{
+    <div class="row">
+        @*<div class="col-lg-offset-4 col-md-offset-3 col-lg-4 col-md-6">*@
+        <div class="col-lg-12">
+            <div class="panel panel-success">
+                @*<div class="panel-heading">
+                        <h3>Üretici Bilgileri</h3>
+                    </div>*@
+                <div class="panel-body">
+                    <h4>@(Uretici.URETICI_NO + " - " + Uretici.ADI + " " + Uretici.SOYADI)</h4>
+                    @*@{
+                            if (durum)
+                            {
+                                if (Odeme.ODEME != null)
+                                {
+                                    <h4>Son Ödeme: @(Odeme.ACIKLAMA + " - " + Odeme.ODEME) TL</h4>
+                                }
+                            }
+                        }*@
+                    <br />
+                    @Html.ActionLink("Tüm Ödemelerim", "Odemelerim", "Bireysel", null, new { @class = "btn btn-success" })
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @DatePicker_V1.DatePicker_Ikili("Kayıtları Getir", "dateBaslangic", "FilterDate_Start", "dateBitis", "FilterDate_End")
+
+}
+
+<table class="table">
+    <tr style="background-color:greenyellow">
+        <th>
+            #
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model._IL)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model._SUBE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BAGKUR)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BORSA_PAY)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HAMALIYE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.KOOP_GID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NAKLIYE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NAKLIYE_ZARAR)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NET)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ODENECEK)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.STOPAJ)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TOPLAM)
+        </th>
+        <th></th>
+        <th>
+            @Html.DisplayNameFor(model => model.ISLEM_TARIHI)
+        </th>
+        <th>
+            Sıra No
+        </th>
+    </tr>
+
+    @{int RowNo = 0;}
+
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @{RowNo++;} @RowNo
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item._IL)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item._SUBE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BAGKUR)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BORSA_PAY)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HAMALIYE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.KOOP_GID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NAKLIYE)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.NAKLIYE_ZARAR)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NET)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ODENECEK)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.STOPAJ)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TOPLAM)
+            </td>
+            <td>
+                @*@Html.ActionLink("Detaylar", "KayitDetayDetayli", new { kayit_id = item.KAYIT_BASLIK_ID }, new { @class = "btn btn-success" })*@
+                @Html.ActionLink("Detaylar", "KayitDetayDetayli", new { sube = item._SUBE.Trim(), tarih = item.ISLEM_TARIHI, sira_no = item.DEPO_SIRA_NO }, new { @class = "btn btn-success" })
+
+            </td>
+            <td style="vertical-align: middle;">
+                @Html.DisplayFor(modelItem => item.ISLEM_TARIHI)
+            </td>
+            <td style="vertical-align: middle;">
+                @Html.DisplayFor(modelItem => item.DEPO_SIRA_NO)
+            </td>
+        </tr>
+    }
+
+    <tr style="background-color:khaki">
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>
+            @Model.Sum(x => x.BAGKUR)
+        </td>
+        <td>
+            @Model.Sum(x => x.BORSA_PAY)
+        </td>
+        <td>
+            @Model.Sum(x => x.HAMALIYE)
+        </td>
+        <td>
+            @Model.Sum(x => x.KOOP_GID)
+        </td>
+        <td>
+            @Model.Sum(x => x.NAKLIYE)
+        </td>
+        <td>
+            @Model.Sum(x => x.NAKLIYE_ZARAR)
+        </td>
+        <td>
+            @Model.Sum(x => x.NET)
+        </td>
+        <td>
+            @Model.Sum(x => x.ODENECEK)
+        </td>
+        <td>
+            @Model.Sum(x => x.STOPAJ)
+        </td>
+        <td>
+            @Model.Sum(x => x.TOPLAM)
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+
+    </tr>
+
+</table>

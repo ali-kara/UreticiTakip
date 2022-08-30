@@ -1,0 +1,17 @@
+﻿@model List<Country>
+
+
+<select class="basic-multiple form-control" name="sehirler[]" multiple="multiple">
+    @{
+        foreach (var item in Model)
+        {
+            <option value="@item.CountryName">@item.CountryName</option>
+        }
+    }
+</select>
+
+<script>
+    $(document).ready(function () {
+        $('.basic-multiple').select2();
+    });
+</script>
