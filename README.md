@@ -1,6 +1,6 @@
 Developed 2017 - 2020
 
-Türkiye çapında çiçek toplu satışı mezatlarda üreticilerin ürünlerinin satış durumu  ve üreticilerin ürünlerini toplayan nakliyecilerin takibi için kullanılan masaüstü yazılımı, server-side web servisleri ve kullanılan web siteleri tarafımdan geliştirilmiştir. 
+Türkiye çapında çiçek toplu satışı mezatlarda üreticilerin ürünlerinin satış durumu  ve üreticilerin ürünlerini toplayan nakliyecilerin takibi için kullanılan masaüstü yazılımı, server-side web servisleri ve kullanılan web siteleri tarafımdan geliştirilmiştir. Sistem canlı olarak kullanılmakta olup 20 farklı merkezden veri gönderimi sağlanıp www.floratediye.com adresinden canlı olarak takip edilebilmektedir.
 
 Ayrıca güncel durumda nakliye tarafı için mobil uygulama ve web servisleri de kodlanmaya başlanmıştır. (https://github.com/ali-kara/nakliye_bilgi_sistemi)
 Ayrıca güncel durumda projenin tamamı .Net Core üzerinden tekrar yazılmaktadır. (https://github.com/ali-kara/floratediye)
